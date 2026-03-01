@@ -1,0 +1,6 @@
+Artificial intelligence enables machines to simulate human intelligence.
+Machine learning is a subset of artificial intelligence that learns from data.
+Deep learning uses neural networks with many layers.
+Vector databases store embeddings for efficient similarity search.
+Semantic search finds results based on meaning rather than exact keywords.
+Retrieval Augmented Generation (RAG) combines vector search with large language models.
