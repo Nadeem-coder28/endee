@@ -4,31 +4,54 @@ import numpy as np
 print("Loading embedding model...")
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Load notes
+
+# -----------------------------
+# LOAD NOTES
+# -----------------------------
 with open("notes.txt", "r", encoding="utf-8") as file:
-    notes = [line.strip() for line in file if line.strip()]
+    full_text = file.read()
 
-# Convert notes to embeddings
-note_embeddings = model.encode(notes)
+# Split into chunks (paragraph-based)
+chunks = [para.strip() for para in full_text.split("\n") if para.strip()]
 
-def semantic_search(query):
+# Convert to embeddings
+embeddings = model.encode(chunks)
+
+# Normalize for cosine similarity
+embeddings = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
+
+
+# -----------------------------
+# SEMANTIC SEARCH FUNCTION
+# -----------------------------
+def semantic_search(query, top_k=3):
     query_embedding = model.encode([query])
-    
-    similarities = np.dot(note_embeddings, query_embedding.T).flatten()
-    best_match_index = np.argmax(similarities)
-    
-    return notes[best_match_index]
+    query_embedding = query_embedding / np.linalg.norm(query_embedding, axis=1, keepdims=True)
 
-print("\nSemantic Search System using Endee Vector Architecture\n")
+    similarities = np.dot(embeddings, query_embedding.T).flatten()
+
+    top_indices = similarities.argsort()[-top_k:][::-1]
+
+    results = [(chunks[i], similarities[i]) for i in top_indices]
+    return results
+
+
+# -----------------------------
+# INTERACTIVE LOOP
+# -----------------------------
+print("\n=== AI Study Assistant (Vector-Based Retrieval) ===\n")
 
 while True:
-    user_query = input("Enter your question (or type 'exit'): ")
-    
-    if user_query.lower() == "exit":
+    query = input("Ask your question (or type 'exit'): ")
+
+    if query.lower() == "exit":
         print("Goodbye!")
         break
-    
-    result = semantic_search(user_query)
-    print("\nMost Relevant Note:")
-    print(result)
-    print()
+
+    results = semantic_search(query)
+
+    print("\nTop Relevant Answers:\n")
+    for answer, score in results:
+        print(f"Similarity Score: {score:.4f}")
+        print(f"- {answer}")
+        print("-" * 60)

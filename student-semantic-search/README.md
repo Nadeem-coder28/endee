@@ -1,4 +1,4 @@
-Semantic Search System using Endee Vector Database Architecture
+AI Study Assistant using Vector-Based Semantic Search (Endee Architecture)
 
 
 
@@ -6,11 +6,9 @@ Semantic Search System using Endee Vector Database Architecture
 
 
 
-This project implements a Semantic Search system for student notes using vector embeddings. 
+This project implements an AI-powered Study Assistant that enables students to query their study notes using semantic search.Unlike traditional keyword-based search, this system retrieves information based on contextual meaning using vector embeddings.
 
-Traditional keyword-based search fails to capture meaning and context. This project demonstrates how vector search enables semantic similarity matching, allowing users to retrieve relevant information based on meaning rather than exact keyword matches.
-
-The system is designed following the Endee Vector Database architecture for storing and querying embeddings.
+The system is architected following Endee’s vector database design principles and demonstrates how semantic retrieval systems are built for modern AI applications such as Retrieval-Augmented Generation (RAG).
 
 
 
@@ -18,19 +16,27 @@ The system is designed following the Endee Vector Database architecture for stor
 
 
 
-Students often store large amounts of notes across subjects. Retrieving specific information using keyword-based search can be inefficient and inaccurate.
+Students often accumulate large volumes of study notes. Finding relevant information using keyword search can be inefficient because:
+
+-It does not understand context
+
+-It fails when exact words are not matched
+
+-It cannot retrieve conceptually similar content
 
 
 
 This project solves the problem by:
 
-\- Converting text notes into vector embeddings
 
-\- Performing similarity-based retrieval
 
-\- Returning the most semantically relevant note
+Converting text into vector embeddings
 
-This simulates how modern AI search engines and RAG systems operate.
+Performing cosine similarity-based retrieval
+
+Returning the most semantically relevant paragraphs
+
+This approach mirrors how production AI search systems operate.
 
 
 
@@ -38,31 +44,49 @@ This simulates how modern AI search engines and RAG systems operate.
 
 
 
-Architecture
+Architecture Flow:
+
+Load structured notes from notes.txt
+
+Split content into paragraph-level chunks
+
+Convert each chunk into vector embeddings using SentenceTransformers
+
+Normalize embeddings for cosine similarity
+
+Convert user query into embedding
+
+Compute similarity scores
+
+Retrieve top-k most relevant results
 
 
 
-User Query -> Convert to Embedding -> Vector Search (Endee Architecture) -> Retrieve Most Similar Document -> Display Result
+Retrieval Pipeline:
 
 
 
-Technical Steps:-
+Text Notes
+
+-> Chunking
+
+-> Embedding Model
+
+-> Vector Representation
+
+-> Cosine Similarity
+
+-> Top-K Semantic Retrieval
 
 
 
-I   Load student notes from text file
-
-II  Convert notes into vector embeddings using SentenceTransformers
-
-III Store embeddings in vector space
-
-IV  Convert user query into embedding
-
-V   Compute cosine similarity
-
-VI  Return the most relevant note
+Key Technical Features:
 
 
+
+Paragraph-based chunking
+
+Normalized vector embeddings, Cosine similarity scoring, Top-K retrieval, Interactive Q\&A loop, RAG-ready architecture
 
 
 
@@ -70,17 +94,17 @@ VI  Return the most relevant note
 
 
 
-This project is built inside the forked Endee repository as required.
-
-The architecture follows Endee's vector database design principles:
+This project is built inside the forked Endee repository as required and the architecture is designed to be compatible with Endee’s vector database engine.
 
 
 
-\- Embeddings represent documents
+Currently:
 
-\- Vector similarity search is core retrieval mechanism
 
-\- Retrieval-first architecture supports future RAG integration
+
+Embeddings are stored in-memory for demonstration
+
+Cosine similarity is computed locally
 
 
 
@@ -88,81 +112,121 @@ In production deployment:
 
 
 
-\- Endee would store embeddings persistently
+Embeddings would be persisted and indexed using Endee’s optimized vector database
 
-\- Endee's vector indexing would enable efficient large-scale search
+Vector search operations would be handled by Endee’s indexing engine
 
-\- Query embeddings would be matched using Endee’s optimized vector search engine
+The retrieval layer would scale to large document collections
 
-
-
-This project demonstrates how Endee can serve as the backbone for AI-powered semantic retrieval systems.
+The current implementation demonstrates the semantic retrieval layer that would plug directly into Endee’s vector storage and search backend.
 
 
 
-5\. Technologies Used
+5\. Practical Use Case
 
 
 
-\- Python
+This system acts as a Study Assistant that:
 
-\- SentenceTransformers
+\-Answers exam-related questions from notes
 
-\- NumPy
+\-Retrieves concept explanations
 
-\- Vector Embeddings
+\-Supports revision preparation
 
-\- Endee Vector Database (Architecture Integration)
-
-
-
-6\. Setup and Execution Instructions
+\-Enables semantic concept search
 
 
 
-&nbsp;Step 1: Install Dependencies
+The same architecture can be extended to:
 
 
+
+Retrieval-Augmented Generation (RAG)
+
+Recommendation system
+
+Knowledge base search engines
+
+Agentic AI workflows
+
+
+
+6\. Technologies Used
+
+
+
+Python
+
+SentenceTransformers
+
+NumPy
+
+Vector Embeddings
+
+Endee Vector Database (Architecture Integration)
+
+
+
+7\. Setup and Execution Instructions
+
+
+
+Step 1: 
+
+
+
+Install Dependencies
 
 pip install -r requirements.txt
 
 
 
-&nbsp;Step 2: Run the Application
+Step 2: 
 
 
+
+Add Study Notes
+
+Place your content inside notes.txt.
+
+Each paragraph represents a searchable chunk.
+
+
+
+Step 3: 
+
+
+
+Run the Application
 
 python main.py
 
 
 
-tep 3: Ask Questions
+Step 4: 
 
 
 
-Example:
-
-What is vector database?
-
-What is RAG?
+Ask Questions
 
 
 
-Type 'exit' to stop.
+Example queries:
 
 
 
-7\. Future Improvements
+What is Retrieval-Augmented Generation?
+
+Explain overfitting.
+
+Difference between supervised and unsupervised learning.
+
+What is cosine similarity?
 
 
 
-\- Integrate Endee server for persistent storage
-
-\- Add RAG integration with LLM
-
-\- Scale to large document collections
-
-\- Build API interface for deployment
+Type exit to quit.
 
 
 
@@ -170,5 +234,5 @@ Conclusion
 
 
 
-This project demonstrates a complete AI/ML application using vector search as the core mechanism. It showcases how Endee Vector Database can power semantic retrieval, forming the foundation for advanced AI systems such as RAG and recommendation engines.
+This project demonstrates a complete vector-based semantic search system aligned with Endee’s vector database architecture. It showcases how modern AI systems retrieve knowledge using embeddings and similarity search, forming the foundation for scalable AI applications.
 
